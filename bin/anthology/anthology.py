@@ -36,6 +36,7 @@ class Anthology:
 
     def __init__(self, importdir=None):
         self.formatter = MarkupFormatter()
+        self.collections = {} # maps collection IDs to Collection objections
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
         if importdir is not None:
@@ -61,7 +62,7 @@ class Anthology:
         for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
         self.pindex.verify()
-        
+
     def import_file(self, filename):
         tree = etree.parse(filename)
         if self.schema is not None:
